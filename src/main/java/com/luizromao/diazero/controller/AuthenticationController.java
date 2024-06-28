@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.luizromao.diazero.domain.user.User;
 import com.luizromao.diazero.domain.user.dto.AuthenticationUserDTO;
+import com.luizromao.diazero.domain.user.dto.DataTokenJWT;
+import com.luizromao.diazero.infra.security.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -20,10 +23,15 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticationManager manager;
 
+	@Autowired
+	private TokenService tokenService;
+
 	@PostMapping
 	public ResponseEntity<?> logIn(@RequestBody @Valid AuthenticationUserDTO data) {
 		var token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+		var authentication = manager.authenticate(token);
+        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
 
-		return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
 	}
 }
