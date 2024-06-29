@@ -13,11 +13,13 @@ import com.luizromao.diazero.domain.incident.dto.CreateIncidentDTO;
 import com.luizromao.diazero.domain.incident.dto.DetailIncidentDataDTO;
 import com.luizromao.diazero.domain.incident.service.IncidentService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/incident")
+@SecurityRequirement(name = "bearer-key")
 public class IncidentController {
 
     @Autowired
