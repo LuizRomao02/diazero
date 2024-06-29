@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.luizromao.diazero.domain.user.repository.UserRepository;
 import com.luizromao.diazero.domain.user.service.UserService;
 import com.luizromao.diazero.domain.user.*;
 import com.luizromao.diazero.domain.user.dto.DetailedUserDataDTO;
@@ -19,9 +18,6 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("users")
 public class UserController {
-
-    @Autowired
-    private UserRepository repository;
 
     @Autowired
     private UserService service;
