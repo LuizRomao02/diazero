@@ -2,7 +2,6 @@ package com.luizromao.diazero.domain.incident.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,7 @@ import com.luizromao.diazero.domain.incident.Incident;
 import com.luizromao.diazero.domain.incident.IncidentEvent;
 import com.luizromao.diazero.domain.incident.IncidentEventType;
 import com.luizromao.diazero.domain.incident.dto.CreateIncidentDTO;
+import com.luizromao.diazero.domain.incident.dto.DataDeleteIncidentDTO;
 import com.luizromao.diazero.domain.incident.dto.DataUpdateIncidentDTO;
 import com.luizromao.diazero.domain.incident.repository.IncidentEventRepository;
 import com.luizromao.diazero.domain.incident.repository.IncidentRepository;
@@ -28,7 +28,8 @@ public class IncidentService {
     @Autowired
     private IncidentEventRepository eventRepository;
 
-    private static final String INCIDENT_CREATED = "Incident created success!";
+    private static final String INCIDENT_CREATED = "Incident successfully created!";
+    private static final String INCIDENT_DELETED = "Incident successfully deleted!";
     private static final LocalDateTime PROCESSING_DATE = LocalDateTime.now();
 
     public Incident createNewIncident(@Valid CreateIncidentDTO incidentDto) {
@@ -61,6 +62,13 @@ public class IncidentService {
     public void updateIncidentById(Long id, @Valid DataUpdateIncidentDTO dto) {
         Incident incident = incidentRepository.getReferenceById(id);
         
+        if(dto.eventType() == IncidentEventType.CREATED){
+            throw new IncidentException("Cannot update incident with CREATED event type.");
+        }
+        if(dto.eventType() == IncidentEventType.DELETED){
+            throw new IncidentException("It is not possible to perform this operation.");
+        }
+
         for (IncidentEvent events : incident.getEvents()) {
             if(events.getEventType() == IncidentEventType.CLOSED || events.getEventType() == IncidentEventType.DELETED){
                 throw new IncidentException("It is not possible to change this incident");
@@ -76,6 +84,28 @@ public class IncidentService {
                 incident,
                 dto.eventType(),
                 dto.eventDescription(),
+                PROCESSING_DATE,
+                userBy
+        );
+        eventRepository.save(incidentEvent);
+    }
+
+    public void deleteIncident(Long id, DataDeleteIncidentDTO dto) {
+        Incident incident = incidentRepository.getReferenceById(id);
+
+        for (IncidentEvent events : incident.getEvents()) {
+            if(events.getEventType() == IncidentEventType.CLOSED){
+                throw new IncidentException("Unable to delete this incident!");
+            }
+        }
+
+        User userBy = new User();
+        userBy.setId(dto.userBy());
+
+        IncidentEvent incidentEvent = new IncidentEvent(
+                incident,
+                IncidentEventType.DELETED,
+                INCIDENT_DELETED,
                 PROCESSING_DATE,
                 userBy
         );
