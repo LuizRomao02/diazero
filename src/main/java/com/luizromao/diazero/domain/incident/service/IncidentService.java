@@ -55,6 +55,10 @@ public class IncidentService {
         return incidentRepository.findAllIncidentsWithEventsOrdered();
     }
 
+    public List<Incident> findLatestIncidents() {
+        return incidentRepository.findTop20ByOrderByDateAtDesc();
+    }
+
     public Incident getIncidentById(Long id){
         return incidentRepository.findIncidentsByIdWithEventsOrdered(id);
     }
