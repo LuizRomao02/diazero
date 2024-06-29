@@ -14,6 +14,10 @@ import com.luizromao.diazero.domain.user.dto.AuthenticationUserDTO;
 import com.luizromao.diazero.domain.user.dto.DataTokenJWT;
 import com.luizromao.diazero.infra.security.TokenService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -26,6 +30,8 @@ public class AuthenticationController {
 	@Autowired
 	private TokenService tokenService;
 
+	@Operation(description = "LogIn", responses = {
+        @ApiResponse(content = @Content(schema = @Schema(implementation = ResponseEntity.class)), responseCode = "200")})
 	@PostMapping
 	public ResponseEntity<?> logIn(@RequestBody @Valid AuthenticationUserDTO data) {
 		var token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
