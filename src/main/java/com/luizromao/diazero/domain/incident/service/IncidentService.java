@@ -10,7 +10,6 @@ import com.luizromao.diazero.domain.incident.Incident;
 import com.luizromao.diazero.domain.incident.IncidentEvent;
 import com.luizromao.diazero.domain.incident.IncidentEventType;
 import com.luizromao.diazero.domain.incident.dto.CreateIncidentDTO;
-import com.luizromao.diazero.domain.incident.dto.DataDeleteIncidentDTO;
 import com.luizromao.diazero.domain.incident.dto.DataUpdateIncidentDTO;
 import com.luizromao.diazero.domain.incident.repository.IncidentEventRepository;
 import com.luizromao.diazero.domain.incident.repository.IncidentRepository;
@@ -94,7 +93,7 @@ public class IncidentService {
         eventRepository.save(incidentEvent);
     }
 
-    public void deleteIncident(Long id, DataDeleteIncidentDTO dto) {
+    public void deleteIncident(Long id, Long idUser) {
         Incident incident = incidentRepository.getReferenceById(id);
 
         for (IncidentEvent events : incident.getEvents()) {
@@ -104,7 +103,7 @@ public class IncidentService {
         }
 
         User userBy = new User();
-        userBy.setId(dto.userBy());
+        userBy.setId(idUser);
 
         IncidentEvent incidentEvent = new IncidentEvent(
                 incident,

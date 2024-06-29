@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.luizromao.diazero.domain.incident.Incident;
 import com.luizromao.diazero.domain.incident.dto.CreateIncidentDTO;
-import com.luizromao.diazero.domain.incident.dto.DataDeleteIncidentDTO;
 import com.luizromao.diazero.domain.incident.dto.DataUpdateIncidentDTO;
 import com.luizromao.diazero.domain.incident.dto.DetailIncidentDataDTO;
 import com.luizromao.diazero.domain.incident.service.IncidentService;
@@ -37,7 +36,6 @@ public class IncidentController {
 
     @Autowired
     private IncidentService service;
-
 
 	@Operation(description = "Create Incident", responses = {
 			@ApiResponse(content = @Content(schema = @Schema(implementation = ResponseEntity.class)), responseCode = "201")})
@@ -85,10 +83,10 @@ public class IncidentController {
 
     @Operation(description = "Delete Incidente", responses = {
         @ApiResponse(content = @Content(schema = @Schema(implementation = ResponseEntity.class)), responseCode = "200")})
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/{idUser}")
     @Transactional
-    public ResponseEntity<?> deleteIncident(@PathVariable Long id, @RequestBody @Valid DataDeleteIncidentDTO dto){
-        service.deleteIncident(id, dto);
+    public ResponseEntity<?> deleteIncident(@PathVariable Long id, @PathVariable Long idUser){
+        service.deleteIncident(id, idUser);
         return ResponseEntity.ok("Incident excluded!");
     }
 }
