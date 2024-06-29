@@ -54,6 +54,10 @@ public class IncidentService {
         return incidentRepository.findAllIncidentsWithEventsOrdered();
     }
 
+    public Incident getIncidentById(Long id){
+        return incidentRepository.findIncidentsByIdWithEventsOrdered(id);
+    }
+
     public void updateIncidentById(Long id, @Valid DataUpdateIncidentDTO dto) {
         Incident incident = incidentRepository.getReferenceById(id);
         

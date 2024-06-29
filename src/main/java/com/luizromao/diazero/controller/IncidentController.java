@@ -2,6 +2,7 @@ package com.luizromao.diazero.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,8 @@ import com.luizromao.diazero.domain.incident.service.IncidentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/incident")
@@ -45,6 +48,12 @@ public class IncidentController {
     public ResponseEntity<?> getAllIncidents(){
         List<Incident> incidents = service.getIncidentsWithEvents();
         return ResponseEntity.ok(incidents);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getIncidentById(@PathVariable Long id){
+        Incident incident = service.getIncidentById(id);
+        return ResponseEntity.ok(incident);
     }
 
     @PutMapping("/{id}")
