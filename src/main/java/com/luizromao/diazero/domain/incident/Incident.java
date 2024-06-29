@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 import com.luizromao.diazero.domain.incident.dto.CreateIncidentDTO;
+import com.luizromao.diazero.domain.incident.dto.DataUpdateIncidentDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,6 +35,12 @@ public class Incident {
         this.name = data.name();
         this.description = data.description();
         this.priority = data.priority();
+    }
+
+    public void updateIncident(DataUpdateIncidentDTO data){
+        if(data.priority() != null){
+            this.priority = data.priority();
+        }
     }
 
     @Id

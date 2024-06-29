@@ -8,7 +8,7 @@ CREATE TABLE incidents (
 CREATE TABLE incident_events (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     incident_id BIGINT,
-    event_type ENUM('CREATED', 'UPDATED', 'DELETED') NOT NULL,
+    event_type ENUM('CREATED', 'UPDATED', 'CLOSED', 'DELETED') NOT NULL,
     event_description TEXT,
     event_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_by BIGINT,
