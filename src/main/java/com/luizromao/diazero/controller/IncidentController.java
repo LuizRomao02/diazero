@@ -66,7 +66,7 @@ public class IncidentController {
         return ResponseEntity.ok(incident);
     }
 
-    @Operation(description = "Return the last 20 incidents in descending order", responses = {
+    @Operation(description = "Return the last 20 incidents that were not deleted, sorted in descending order.", responses = {
         @ApiResponse(content = @Content(schema = @Schema(implementation = ResponseEntity.class)), responseCode = "200")})
     @GetMapping("/theLastIncident")
     public ResponseEntity<?> getTheLast20Incident(){
