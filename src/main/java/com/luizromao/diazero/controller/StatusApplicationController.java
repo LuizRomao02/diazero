@@ -16,12 +16,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/status")
-public class StatusApplication {
+public class StatusApplicationController {
 
 	@Operation(description = "Return application status", responses = {
         @ApiResponse(content = @Content(schema = @Schema(implementation = ResponseEntity.class)), responseCode = "200")})
 	@GetMapping
-	public String status() throws UnknownHostException {
-		return "STATUS OK Application: " + Instant.now() + " Server [" + InetAddress.getLocalHost() + "]"; 
+	public ResponseEntity<String> status() throws UnknownHostException {
+		String response = "STATUS OK Application: " + Instant.now() + " Server [" + InetAddress.getLocalHost() + "]";
+		return ResponseEntity.ok(response);
 	}
 }
