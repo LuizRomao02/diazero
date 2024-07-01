@@ -41,7 +41,7 @@ Below are listed the business rules of the systems.
 
 🛠 **Incident**
 
-**Register and LogIn**
+**Functionality to create the incident**
 1) You need to be logged into the system to perform any operation on the incident endpoint.
 2) We need two entities: the Incident entity to store information such as id, name, description, priority, and a list of events related to the incident. The second entity is IncidentEvent, responsible for storing details of events occurring in incidents, such as id, incident reference, event type (defined by an enum of created, updated, closed, and deleted), event description, event timestamp, and the user who created the event.
 3) To create an incident, you need to fill out the following information: name, description, priority (which must be an enum with values Low, Medium, High, or Critical), and the user who created it.
