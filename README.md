@@ -1,5 +1,5 @@
 <h3 align="center">API DIAZERO - Incident</h3>
-
+<br><br>
 ## 💻 About The Project
 
 This application is a RESTful API that represents the incident creation process. It includes login functionalities that allow users to create, edit, list, and delete incidents.
@@ -46,15 +46,16 @@ Below are listed the business rules of the systems.
 5) Functionality to list all incidents with their events, sorted by priority order (critical, high, medium, low).
 6) Functionality to list the last 20 registered incidents with their events, sorted by date in descending order.
 7) Functionality to list the incident with their events by registration ID, sorted by priority order (critical, high, medium, low).
+---
 8) Functionality to update the incident by ID.
-- Can update the following information: priority, event (mandatory), event description (mandatory), and user ID (mandatory).
-- With each incident update, it creates a new event instead of modifying an existing one.
-- Cannot update the incident to the event type CREATED or DELETED; if attempted, return status 404.
-- If the incident has an event of type CLOSED or DELETED, it will no longer be possible to update information for this incident, return status 404.
-  
+-- Can update the following information: priority, event (mandatory), event description (mandatory), and user ID (mandatory).
+-- With each incident update, it creates a new event instead of modifying an existing one.
+-- Cannot update the incident to the event type CREATED or DELETED; if attempted, return status 404.
+-- If the incident has an event of type CLOSED or DELETED, it will no longer be possible to update information for this incident, return status 404.
+---
 9)Functionality to delete the incident by ID
-- No information will be deleted from the database. The 'delete' function will disable the incident by updating its event to DELETED.
-- If the incident already has an event of type CLOSED or DELETED, it will not be possible to change its status.
+-- No information will be deleted from the database. The 'delete' function will disable the incident by updating its event to DELETED.
+-- If the incident already has an event of type CLOSED or DELETED, it will not be possible to change its status.
 
 ---
 
