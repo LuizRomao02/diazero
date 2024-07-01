@@ -51,6 +51,7 @@ Below are listed the business rules of the systems.
 - With each incident update, it creates a new event instead of modifying an existing one.
 - Cannot update the incident to the event type CREATED or DELETED; if attempted, return status 404.
 - If the incident has an event of type CLOSED or DELETED, it will no longer be possible to update information for this incident, return status 404.
+  
 9)Functionality to delete the incident by ID
 - No information will be deleted from the database. The 'delete' function will disable the incident by updating its event to DELETED.
 - If the incident already has an event of type CLOSED or DELETED, it will not be possible to change its status.
