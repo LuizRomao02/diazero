@@ -2,6 +2,7 @@ package com.luizromao.diazero.domain.incident.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,7 @@ public class IncidentService {
         return incidentRepository.findTop20ByOrderByDateAtDesc();
     }
 
-    public Incident getIncidentById(Long id){
+    public Optional<Incident> getIncidentById(Long id){
         return incidentRepository.findIncidentsByIdWithEventsOrdered(id);
     }
 
@@ -74,7 +75,7 @@ public class IncidentService {
 
         for (IncidentEvent events : incident.getEvents()) {
             if(events.getEventType() == IncidentEventType.CLOSED || events.getEventType() == IncidentEventType.DELETED){
-                throw new IncidentException("It is not possible to change this incident");
+                throw new IncidentException("It is not possible to change this incident.");
             }
         }
 
@@ -97,7 +98,7 @@ public class IncidentService {
         Incident incident = incidentRepository.getReferenceById(id);
 
         for (IncidentEvent events : incident.getEvents()) {
-            if(events.getEventType() == IncidentEventType.CLOSED){
+            if(events.getEventType() == IncidentEventType.CLOSED || events.getEventType() == IncidentEventType.DELETED){
                 throw new IncidentException("Unable to delete this incident!");
             }
         }

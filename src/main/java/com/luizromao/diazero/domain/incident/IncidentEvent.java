@@ -29,7 +29,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class IncidentEvent {
 
     public IncidentEvent(Incident incident, IncidentEventType eventType, String eventDescription, LocalDateTime eventDate, User userBy) {
@@ -42,6 +41,7 @@ public class IncidentEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -57,6 +57,7 @@ public class IncidentEvent {
     private String eventDescription;
 
     @Column(name = "event_date", nullable = false)
+    @EqualsAndHashCode.Exclude
     private LocalDateTime eventDate;
 
     @ManyToOne
