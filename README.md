@@ -1,5 +1,6 @@
 <h3 align="center">API DIAZERO - Incident</h3>
 <br><br>
+
 ## 💻 About The Project
 
 This application is a RESTful API that represents the incident creation process. It includes login functionalities that allow users to create, edit, list, and delete incidents.
@@ -39,24 +40,27 @@ Below are listed the business rules of the systems.
 2) If login information does not exist or is not compatible, a status 401 will be returned.
 
 🛠 **Incident**
+
+**Register and LogIn**
 1) You need to be logged into the system to perform any operation on the incident endpoint.
 2) We need two entities: the Incident entity to store information such as id, name, description, priority, and a list of events related to the incident. The second entity is IncidentEvent, responsible for storing details of events occurring in incidents, such as id, incident reference, event type (defined by an enum of created, updated, closed, and deleted), event description, event timestamp, and the user who created the event.
 3) To create an incident, you need to fill out the following information: name, description, priority (which must be an enum with values Low, Medium, High, or Critical), and the user who created it.
 4) As soon as the request to create an incident is made, automatically create its event with type CREATED.
 ---
-5) Functionality to list all incidents with their events, sorted by priority order (critical, high, medium, low).
-6) Functionality to list the last 20 registered incidents with their events, sorted by date in descending order.
-7) Functionality to list the incident with their events by registration ID, sorted by priority order (critical, high, medium, low).
+**Return Information about the Incident**
+1) Functionality to list all incidents with their events, sorted by priority order (critical, high, medium, low).
+2) Functionality to list the last 20 registered incidents with their events, sorted by date in descending order.
+3) Functionality to list the incident with their events by registration ID, sorted by priority order (critical, high, medium, low).
 ---
-8) Functionality to update the incident by ID.
-9) Can update the following information: priority, event (mandatory), event description (mandatory), and user ID (mandatory).
-10) With each incident update, it creates a new event instead of modifying an existing one.
-11) Cannot update the incident to the event type CREATED or DELETED; if attempted, return status 404.
-12) If the incident has an event of type CLOSED or DELETED, it will no longer be possible to update information for this incident, return status 404.
+**Functionality to update the incident by ID**
+1) Can update the following information: priority, event (mandatory), event description (mandatory), and user ID (mandatory).
+2) With each incident update, it creates a new event instead of modifying an existing one.
+3) Cannot update the incident to the event type CREATED or DELETED; if attempted, return status 404.
+4) If the incident has an event of type CLOSED or DELETED, it will no longer be possible to update information for this incident, return status 404.
 ---
-13)Functionality to delete the incident by ID
-14) No information will be deleted from the database. The 'delete' function will disable the incident by updating its event to DELETED.
-15) If the incident already has an event of type CLOSED or DELETED, it will not be possible to change its status.
+**Functionality to delete the incident by ID**
+1) No information will be deleted from the database. The 'delete' function will disable the incident by updating its event to DELETED.
+2) If the incident already has an event of type CLOSED or DELETED, it will not be possible to change its status.
 
 ---
 
