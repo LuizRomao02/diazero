@@ -43,19 +43,20 @@ Below are listed the business rules of the systems.
 2) We need two entities: the Incident entity to store information such as id, name, description, priority, and a list of events related to the incident. The second entity is IncidentEvent, responsible for storing details of events occurring in incidents, such as id, incident reference, event type (defined by an enum of created, updated, closed, and deleted), event description, event timestamp, and the user who created the event.
 3) To create an incident, you need to fill out the following information: name, description, priority (which must be an enum with values Low, Medium, High, or Critical), and the user who created it.
 4) As soon as the request to create an incident is made, automatically create its event with type CREATED.
+---
 5) Functionality to list all incidents with their events, sorted by priority order (critical, high, medium, low).
 6) Functionality to list the last 20 registered incidents with their events, sorted by date in descending order.
 7) Functionality to list the incident with their events by registration ID, sorted by priority order (critical, high, medium, low).
 ---
 8) Functionality to update the incident by ID.
--- Can update the following information: priority, event (mandatory), event description (mandatory), and user ID (mandatory).
--- With each incident update, it creates a new event instead of modifying an existing one.
--- Cannot update the incident to the event type CREATED or DELETED; if attempted, return status 404.
--- If the incident has an event of type CLOSED or DELETED, it will no longer be possible to update information for this incident, return status 404.
+9) Can update the following information: priority, event (mandatory), event description (mandatory), and user ID (mandatory).
+10) With each incident update, it creates a new event instead of modifying an existing one.
+11) Cannot update the incident to the event type CREATED or DELETED; if attempted, return status 404.
+12) If the incident has an event of type CLOSED or DELETED, it will no longer be possible to update information for this incident, return status 404.
 ---
-9)Functionality to delete the incident by ID
--- No information will be deleted from the database. The 'delete' function will disable the incident by updating its event to DELETED.
--- If the incident already has an event of type CLOSED or DELETED, it will not be possible to change its status.
+13)Functionality to delete the incident by ID
+14) No information will be deleted from the database. The 'delete' function will disable the incident by updating its event to DELETED.
+15) If the incident already has an event of type CLOSED or DELETED, it will not be possible to change its status.
 
 ---
 
@@ -66,26 +67,26 @@ Below are the three available deployment methods for the application:
 
 🛠 **Running Via Terminal**
 ```
-java -Dspring.profiles.active=prod -DDATASOURCE_URL=jdbc:mysql://localhost/vollmed_api -DDATASOURCE_USERNAME=root -DDATASOURCE_PASSWORD=root -jar target/api-0.0.1-SNAPSHOT.jar 
+java -Dspring.profiles.active=prod -DDATASOURCE_URL=jdbc:mysql://localhost:3306/diazero_api -DDATASOURCE_USERNAME=root -DDATASOURCE_PASSWORD=root -jar target/diazero-00.00.01.jar 
 ```
 
 
 🛠 **Build with file .war**
-1) Adicionar a tag <packaging>war</packaging> no arquivo pom.xml do projeto, devendo essa tag ser filha da tag raiz <project>:
+1) Add the <packaging>war</packaging> tag to the pom.xml file of the project, with this tag being a child of the root <project> tag.
 ```
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.0.0</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-  <groupId>med.voll</groupId>
-  <artifactId>api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>api</name>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.1</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.luizromao</groupId>
+	<artifactId>diazero</artifactId>
+	<version>00.00.01</version>
+	<name>diazero</name>
 
   <packaging>war</packaging>
 ```
