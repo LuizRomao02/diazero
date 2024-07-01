@@ -38,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -138,7 +139,7 @@ class IncidentControllerTest {
     @WithMockUser
     void getIncidentById200Test() throws Exception{
         Incident incident = new Incident();
-        when(service.getIncidentById(1L)).thenReturn(incident);
+        when(service.getIncidentById(1L)).thenReturn(Optional.of(incident));
 
         mockMvc.perform(get("/incident/{id}", 1L).accept(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk());
     }

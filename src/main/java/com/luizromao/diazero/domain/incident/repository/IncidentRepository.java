@@ -1,6 +1,7 @@
 package com.luizromao.diazero.domain.incident.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,7 +32,7 @@ public interface IncidentRepository extends JpaRepository<Incident, Long>{
                 "WHEN 'MEDIUM' THEN 3 " +
                 "WHEN 'LOW' THEN 4 " +
                 "END, e.eventDate")
-        Incident findIncidentsByIdWithEventsOrdered(@Param("id") Long id);
+        Optional<Incident> findIncidentsByIdWithEventsOrdered(@Param("id") Long id);
 
         @Query(value = "SELECT inc.*, " +
                 "inEvents.* " +

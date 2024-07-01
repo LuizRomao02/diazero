@@ -28,7 +28,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "idIncident")
 public class Incident {
 
     public Incident(CreateIncidentDTO data){
@@ -45,6 +44,7 @@ public class Incident {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Exclude
     private Long idIncident;
 
     @Column(name = "name")

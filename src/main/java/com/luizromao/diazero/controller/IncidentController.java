@@ -1,6 +1,7 @@
 package com.luizromao.diazero.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +61,7 @@ public class IncidentController {
         @ApiResponse(content = @Content(schema = @Schema(implementation = ResponseEntity.class)), responseCode = "200")})
     @GetMapping("/{id}")
     public ResponseEntity<?> getIncidentById(@PathVariable Long id){
-        Incident incident = service.getIncidentById(id);
+        Optional<Incident> incident = service.getIncidentById(id);
         return ResponseEntity.ok(incident);
     }
 
